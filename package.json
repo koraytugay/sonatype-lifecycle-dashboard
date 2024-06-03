@@ -1,0 +1,179 @@
+{
+  "name": "sonatype-lifecycle-dashboard",
+  "displayName": "Sonatype Lifecycle Dashboard",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Sonatype Lifecycle Dashboard",
+      "properties": {
+        "sonatypeLifecycleDashboard.iqServerUrl": {
+          "type": "string",
+          "default": "https://sonatype.sonatype.app/platform",
+          "description": "Specifies the IQ Server URL to use.",
+          "order": 1
+        },
+        "sonatypeLifecycleDashboard.applicationPublicIds": {
+          "type": "string",
+          "description": "Comma seperated applicationPublicId list.",
+          "order": 2
+        },
+        "sonatypeLifecycleDashboard.credentials": {
+          "type": "string",
+          "default": "username:password",
+          "description": "Specifies the IQ Server credentials.",
+          "order": 3
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "sonatype-lifecycle-dashboard.fetchReports",
+        "title": "Fetch Reports",
+        "icon": "$(extensions-refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lifecycle-dashboard-container",
+          "title": "Sonatype Lifecycle",
+          "icon": "resources/sonatype.png"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "sonatype-lifecycle-dashboard.fetchReports",
+          "when": "view == lifecycle-dashboard-container-id",
+          "group": "navigation@1"
+        }
+      ]
+    },
+    "views": {
+      "lifecycle-dashboard-container": [
+        {
+          "id": "lifecycle-dashboard-container-id",
+          "name": "Dashboard"
+        }
+      ]
+    },
+    "colors": [
+      {
+        "id": "has.remediation",
+        "description": "Severity Critical",
+        "defaults": {
+          "dark": "#FFFF00",
+          "light": "#FFFF00",
+          "highContrast": "#FFFF00",
+          "highContrastLight": "#FFFF00"
+        }
+      },
+      {
+        "id": "severity.critical",
+        "description": "Severity Critical",
+        "defaults": {
+          "dark": "#bf001f",
+          "light": "#bf001f",
+          "highContrast": "#bf001f",
+          "highContrastLight": "#bf001f"
+        }
+      },
+      {
+        "id": "severity.severe",
+        "description": "Severity Severe",
+        "defaults": {
+          "dark": "#fc6d07",
+          "light": "#fc6d07",
+          "highContrast": "#fc6d07",
+          "highContrastLight": "#fc6d07"
+        }
+      },
+      {
+        "id": "severity.moderate",
+        "description": "Severity Moderate",
+        "defaults": {
+          "dark": "#feb628",
+          "light": "#feb628",
+          "highContrast": "#feb628",
+          "highContrastLight": "#feb628"
+        }
+      },
+      {
+        "id": "severity.low",
+        "description": "Severity Low",
+        "defaults": {
+          "dark": "#3942a8",
+          "light": "#3942a8",
+          "highContrast": "#3942a8",
+          "highContrastLight": "#3942a8"
+        }
+      },
+      {
+        "id": "severity.none",
+        "description": "Severity None",
+        "defaults": {
+          "dark": "#15a2ff",
+          "light": "#15a2ff",
+          "highContrast": "#15a2ff",
+          "highContrastLight": "#15a2ff"
+        }
+      },
+      {
+        "id": "severity.unspecified",
+        "description": "Severity Unspecified",
+        "defaults": {
+          "dark": "#FFFFFF",
+          "light": "#000000",
+          "highContrast": "#FFFFFF",
+          "highContrastLight": "#000000"
+        }
+      },
+      {
+        "id": "severity.waived",
+        "description": "Severity Waived",
+        "defaults": {
+          "dark": "#2A800B",
+          "light": "#2A800B",
+          "highContrast": "#2A800B",
+          "highContrastLight": "#2A800B"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "prettier": "prettier . --write",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.89.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "prettier": "^3.3.0"
+  }
+}
